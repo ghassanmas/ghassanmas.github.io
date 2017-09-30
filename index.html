@@ -72,21 +72,11 @@ window.twttr = (function(d, s, id) {
   };
 
   return t;
-}(document, "script", "twitter-wjs"));
+}(document, "script", "twitter-wjs"));</script>
 
-twttr.widgets.createTweet(
-  '20',
-  document.getElementById('p1'),
-  {
-    theme: 'dark'1
-  }
-);
-
-
-//document.getElementById("a").innerHTML = '';
 
 </script>
-    <script>
+    <script charset="utf-8">
 
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
@@ -118,8 +108,9 @@ function createCORSRequest(method, url) {
 var jsonData = JSON.parse(responseText);
 var ids=[];
  console.log(responseText);
-for (var i = 0; i < jsonData.id.length; i++) {
-    ids.push(jsonData.id[i]);
+for (var i = 0; i < jsonData.href.length; i++) {
+    ids.push( "<div>"+(jsonData.href[i].replace(/\\/g,''))+"</div>");
+
     
 }
 
@@ -142,21 +133,37 @@ showIds(ids);
 
 
 
+function load_script()
+{
+  eval( document.getElementById("con").innerHTML + "");
+}
+
+
 function showIds(ids){
 	
           var html=[];
+          var s="";
 
-	for(var i=0;i<1;i++){
-                       var url="https://publish.twitter.com/oembed?url="+ids[i]
-                   var xhr = createCORSRequest('GET',url);
-                     xhr.send();
+	for(var i=0;i<10;i++){
+
         	
-        
+         s=s.concat(ids[i]);
 
         
 	}
-        
+document.getElementById("con").innerHTML=s;
+var x = document.getElementsByTagName("script"); 
+   for(var i=0;i<x.length;i++)
+   {
+       eval(x[i].text);
+   }
 
+
+twttr.widgets.load();
+
+
+       //insertAndExecute("con", s)/
+//load_script();
 
 
 
@@ -190,7 +197,7 @@ function createCORSRequest(method, url) {
 var jsonData = JSON.parse(responseText);
 var ids=[];
  console.log(responseText);
-    document.getElementById("container").innerHTML=jsonData['html']
+    document.getElementById("twitter-wjs").innerHTML=jsonData['html']
     
 
 
@@ -226,7 +233,7 @@ var ids=[];
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
+          center: {lat: 31.8, lng: 35.2},
           zoom: 3
         });
 
@@ -271,12 +278,16 @@ var ids=[];
 
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9JvgnmyWXJgAVc7trIDI_XF1k3EOdtPY&callback=initMap"
+    <script charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9JvgnmyWXJgAVc7trIDI_XF1k3EOdtPY&callback=initMap"
     async defer></script>
 
-<div id="container">
-     <p id="p1">Here May be</p>
+<div id="con">
+
+
 </div>
+
+
+
   </body>
 </html>
 
