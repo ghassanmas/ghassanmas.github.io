@@ -240,7 +240,7 @@ var ids=[];
           zoom: 3
         });
 
-        map.addListener('center_changed', function() {
+        map.addListener('center_changed',(function() {
           // 3 seconds after the center of the map has changed, pan back to the
           // marker.
 
@@ -249,6 +249,10 @@ var ids=[];
            // map.panTo(marker.getPosition());
            // xmlhttp.open("GET", "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow", true);
              //      xmlhttp.send();
+          
+          var timer;
+          clearTimeout(timer)
+          mer = setTimeout(function() {
                    var api="https://welvon-1211.appspot.com/hello?lat=";
                 //  var zoom=map.getZoom();
                   var latlng=map.getCenter();
@@ -266,12 +270,13 @@ var ids=[];
 
           //http://localhost:8080/hello?lat=35&lon=32
 
-            
+          },2000);
        
-        });
+        })();
 
 
       }
+
 
 
 
