@@ -11,6 +11,7 @@
       #map {
         height: 100%;
       }
+
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 70%;
@@ -110,7 +111,13 @@ function showIds(ids){
 
           var html=[];
           var s="";
-	for(var i=0;i<10;i++){
+	for(var i=0;i<ids.length;i++){
+//    console.log(i)
+
+          //console.log("-----")
+          //console.log(ids[0].indexOf('class="twitter-tweet'))
+        ids[i]=(ids[i].slice(0,ids[i].indexOf('class="twitter-tweet')+20)+" tw-align-center "+ids[i].slice(ids[i].indexOf('class="twitter-tweet')));
+        //  console.log(ids[0])
 
          s=s.concat(ids[i]);
 
