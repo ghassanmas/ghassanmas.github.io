@@ -6,8 +6,6 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-
-
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
@@ -19,7 +17,6 @@
         margin: 0;
         padding: 0;
       }
-
       blockquote.twitter-tweet {
   display: inline-block;
   font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
@@ -35,20 +32,17 @@
   padding: 0 16px 16px 16px;
   max-width: 468px;
 }
-
 blockquote.twitter-tweet p {
   font-size: 16px;
   font-weight: normal;
   line-height: 20px;
 }
-
 blockquote.twitter-tweet a {
   color: inherit;
   font-weight: normal;
   text-decoration: none;
   outline: 0 none;
 }
-
 blockquote.twitter-tweet a:hover,
 blockquote.twitter-tweet a:focus {
   text-decoration: underline;
@@ -68,224 +62,139 @@ window.twttr = (function(d, s, id) {
   js.id = id;
   js.src = "https://platform.twitter.com/widgets.js";
   fjs.parentNode.insertBefore(js, fjs);
-
   t._e = [];
   t.ready = function(f) {
     t._e.push(f);
   };
-
   return t;
 }(document, "script", "twitter-wjs"));</script>
 
 
 </script>
     <script charset="utf-8">
-
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
   if ("withCredentials" in xhr) {
-
     // Check if the XMLHttpRequest object has a "withCredentials" property.
     // "withCredentials" only exists on XMLHTTPRequest2 objects.
     xhr.open(method, url, true);
-
   } else if (typeof XDomainRequest != "undefined") {
-
     // Otherwise, check if XDomainRequest.
     // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
     xhr = new XDomainRequest();
     xhr.open(method, url);
-
   } else {
-
     // Otherwise, CORS is not supported by the browser.
     xhr = null;
-
   }
-
-
  xhr.onload = function() {
  var responseText = xhr.responseText;
- console.log("Da5al");
- console.log(responseText);
 var jsonData = JSON.parse(responseText);
 var ids=[];
- console.log(responseText);
+
 for (var i = 0; i < jsonData.href.length; i++) {
     ids.push( "<div>"+(jsonData.href[i].replace(/\\/g,''))+"</div>");
 
-    
 }
-
 showIds(ids);
-
-
-
-
-
-
-
         //document.getElementById("container").innerHTML = responseText;
-
  // process the response.
 };
-
   return xhr;
-
 }
-
-
-
 function load_script()
 {
   eval( document.getElementById("con").innerHTML + "");
 }
-
-
 function showIds(ids){
-	
+
           var html=[];
           var s="";
-
 	for(var i=0;i<10;i++){
 
-        	
          s=s.concat(ids[i]);
 
-        
 	}
 document.getElementById("con").innerHTML=s;
-var x = document.getElementsByTagName("script"); 
+var x = document.getElementsByTagName("script");
    for(var i=0;i<x.length;i++)
    {
        eval(x[i].text);
    }
-
-
 twttr.widgets.load();
-
-
        //insertAndExecute("con", s)/
 //load_script();
-
-
-
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
   if ("withCredentials" in xhr) {
-
     // Check if the XMLHttpRequest object has a "withCredentials" property.
     // "withCredentials" only exists on XMLHTTPRequest2 objects.
     xhr.open(method, url, true);
-
   } else if (typeof XDomainRequest != "undefined") {
-
     // Otherwise, check if XDomainRequest.
     // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
     xhr = new XDomainRequest();
     xhr.open(method, url);
-
   } else {
-
     // Otherwise, CORS is not supported by the browser.
     xhr = null;
-
   }
-
-
  xhr.onload = function() {
  var responseText = xhr.responseText;
- console.log("Da5al");
- console.log(responseText);
 var jsonData = JSON.parse(responseText);
 var ids=[];
- console.log(responseText);
     document.getElementById("twitter-wjs").innerHTML=jsonData['html']
-    
-
-
-
-
-
-
-
-
-
 
         //document.getElementById("container").innerHTML = responseText;
-
  // process the response.
 };
-
   return xhr;
-
 }
 
-
-
-
-
-
-
-
-
-	
 }
-
       var map;
-
       function initMap() {
+
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 31.8, lng: 35.2},
           zoom: 3
         });
-
-        map.addListener('center_changed',(function() {
+        google.maps.event.addListener(
+    map,
+    "bounds_changed",(function() {
           // 3 seconds after the center of the map has changed, pan back to the
           // marker.
 
-          
            // document.getElementById("container").innerHTML = map.getCenter().lat()+" zoom: "+map.getZoom();
            // map.panTo(marker.getPosition());
            // xmlhttp.open("GET", "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow", true);
              //      xmlhttp.send();
-          
+
           var timer;
+          return function(){
           clearTimeout(timer)
           timer = setTimeout(function() {
+            console.log("should be one in two seconds")
                    var api="https://welvon-1211.appspot.com/hello?lat=";
                 //  var zoom=map.getZoom();
                   var latlng=map.getCenter();
                   var lat=latlng.lat();
                   var lng=latlng.lng();
-                  
+
                 //  var req="="+lat+"|"+lng+"&gsradius=10000&gslimit=20";
                      var req=lat+"&lon="+lng;
                   var url=api+req;
                   var xhr = createCORSRequest('GET',url);
           //var xhr = createCORSRequest('GET', "https://en.wikipedia.org/w/api.php?format=json&origin=*&action=query&&list=geosearch&gscoord=37.786952%7C-122.399523&gsradius=10000&gslimit=10");
-
            console.log("ba3t");
            xhr.send();
-
           //http://localhost:8080/hello?lat=35&lon=32
-
           },2000);
-       
-        }
-    )()
 
+}        })()
 
       );
       }
-
-
-
-
-
-
-
-
     </script>
     <script charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9JvgnmyWXJgAVc7trIDI_XF1k3EOdtPY&callback=initMap"
     async defer></script>
@@ -300,10 +209,3 @@ var ids=[];
   </body>
 
 </html>
-
-
-
-
-
-
-
